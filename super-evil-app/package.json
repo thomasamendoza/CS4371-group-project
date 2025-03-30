@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky"
+    "prepare": "husky && husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -26,7 +26,8 @@
     ]
   },
   "lint-staged": {
-      "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "*.{js,css,md}": "prettier --write"
   },
   "browserslist": {
     "production": [
