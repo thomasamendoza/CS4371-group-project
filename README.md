@@ -8,3 +8,11 @@ Our goal is to test indirect attacks on varyious LLM-integrated applications usi
 <h2 align="left">Technologies and Languages Used</h2>
 <p align="left"><a href="https://www.javascript.com/" target="_blank"><img src="https://img.icons8.com/?size=100&id=39854&format=png&color=000000" alt="javascript" width="40" height="40"/></a><a href="https://www.w3schools.com/css/" target="_blank"><img src="https://img.icons8.com/?size=100&id=10236&format=png&color=000000" alt="css" width="40" height="40"/></a><a href="https://www.w3schools.com/html/" target="_blank"><img src="https://img.icons8.com/?size=100&id=10246&format=png&color=000000" alt="html" width="40" height="40"/></a>
 
+<h2 align="left">Run the Project, and Other Commands</h2>
+Run the Project:
+-npm install 
+-npm start 
+
+Run 'make fmt' and format your code:
+-npm install --save-dev prettier husky
+-npx husky install
