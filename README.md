@@ -13,6 +13,5 @@ Run the Project:
 -npm install 
 -npm start 
 
-Run 'make fmt' and format your code:
--npm install --save-dev prettier husky
--npx husky install
+Format your code:
+-npx prettier . --write
