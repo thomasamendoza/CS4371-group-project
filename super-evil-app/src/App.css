@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 .App {
   text-align: center;
@@ -14,13 +14,13 @@
 }
 
 .App::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 20%, #ff6b6b55 0%, transparent 25%),
     radial-gradient(circle at 80% 80%, #4ecdc455 0%, transparent 25%),
     radial-gradient(circle at 50% 50%, #45b7d155 0%, transparent 35%);
@@ -49,7 +49,7 @@
 }
 
 .austin-banner {
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   font-size: 2.5rem;
   color: #ff6b6b;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -58,7 +58,7 @@
 }
 
 h1 {
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   font-size: 2.5rem;
   margin: 0 0 1.5rem 0;
   background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
@@ -76,7 +76,7 @@ h1 {
 .time {
   font-size: 4rem;
   font-weight: 700;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   color: #fff;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
@@ -88,7 +88,7 @@ h1 {
 }
 
 .austin-motto {
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   font-size: 1.2rem;
   color: #ff6b6b;
   margin-top: 1.5rem;
@@ -106,7 +106,8 @@ h1 {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(15deg) translateY(0);
   }
   50% {
