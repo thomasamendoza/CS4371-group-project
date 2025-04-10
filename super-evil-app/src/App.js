@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import IndirectPrompt from './pages/alan';
 import './App.css';
 
 function App() {
