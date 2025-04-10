@@ -16,7 +16,7 @@ Run the Project:
 
 - `npm install`
 
-- `npm start` 
+- `npm run start` 
 
 Format your code:
 
