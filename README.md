@@ -20,4 +20,4 @@ Run the Project:
 
 Format your code:
 
-- `npx prettier . --write`
+- `npm run fmt`
