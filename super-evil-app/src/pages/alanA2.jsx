@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 function MetadataInjection() {
   useEffect(() => {
-    const meta = document.createElement("meta");
-    meta.name = "description";
-    meta.content = ""
+    const meta = document.createElement('meta');
+    meta.name = 'description';
+    meta.content = '';
     document.head.appendChild(meta);
   }, []);
 
   return (
     <>
-      <div className="App">
-        <div className="content-container">
-          <div className="clock-container">
+      <div className='App'>
+        <div className='content-container'>
+          <div className='clock-container'>
             <p>Hello There</p>
           </div>
         </div>

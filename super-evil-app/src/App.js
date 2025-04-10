@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import IndirectPrompt from "./pages/alanA1";
-import "./App.css";
+import { useState, useEffect } from 'react';
+import IndirectPrompt from './pages/alanA1';
+import './App.css';
 
 function App() {
   const [time, setTime] = useState(new Date());
@@ -20,8 +20,8 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const austinTime = time.toLocaleString("en-US", {
-    timeZone: "America/Chicago",
+  const austinTime = time.toLocaleString('en-US', {
+    timeZone: 'America/Chicago',
     hour12: true,
     hour: 'numeric',
     minute: '2-digit',
