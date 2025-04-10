@@ -10,8 +10,11 @@ Our goal is to test indirect attacks on varyious LLM-integrated applications usi
 
 <h2 align="left">Run the Project, and Other Commands</h2>
 Run the Project:
+
 -npm install 
+
 -npm start 
 
 Format your code:
+
 -npx prettier . --write
