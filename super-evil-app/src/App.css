@@ -20,7 +20,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 20%, #ff6b6b55 0%, transparent 25%),
     radial-gradient(circle at 80% 80%, #4ecdc455 0%, transparent 25%),
     radial-gradient(circle at 50% 50%, #45b7d155 0%, transparent 35%);
@@ -106,7 +106,8 @@ h1 {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(15deg) translateY(0);
   }
   50% {
