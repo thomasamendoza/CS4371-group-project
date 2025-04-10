@@ -11,9 +11,13 @@ Our goal is to test indirect attacks on varyious LLM-integrated applications usi
 
 <h2 align="left">Run the Project, and Other Commands</h2>
 Run the Project:
-- cd super-evil-app/
-- npm install 
-- npm start 
+
+- `cd super-evil-app/`
+
+- `npm install`
+
+- `npm start` 
 
 Format your code:
-- npx prettier . --write
+
+- `npx prettier . --write`
