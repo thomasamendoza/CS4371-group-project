@@ -1,0 +1,10 @@
+[debug] [2025-04-15T19:07:09.661Z] ----------------------------------------------------------------------
+[debug] [2025-04-15T19:07:09.670Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ccyow\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2025-04-15T19:07:09.671Z] CLI Version:   14.1.0
+[debug] [2025-04-15T19:07:09.671Z] Platform:      win32
+[debug] [2025-04-15T19:07:09.671Z] Node Version:  v22.14.0
+[debug] [2025-04-15T19:07:09.672Z] Time:          Tue Apr 15 2025 14:07:09 GMT-0500 (Central Daylight Time)
+[debug] [2025-04-15T19:07:09.672Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-15T19:07:09.757Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-04-15T19:07:09.758Z] > authorizing via signed-in user (minerva.deuteronomy@gmail.com)
