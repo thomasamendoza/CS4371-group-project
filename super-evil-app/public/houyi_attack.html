@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HouYi Attack</title>
+</head>
+<body>
+  <h2>Click to Launch Attack</h2>
+  <button id="attackBtn">Attack</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('attackBtn').addEventListener('click', async () => {
+      document.getElementById('output').textContent = "Running attack...";
+      try {
+        const res = await fetch("http://localhost:5000/attack", {
+          method: "POST"
+        });
+        const data = await res.json();
+        document.getElementById('output').textContent = data.output || "No output";
+      } catch (e) {
+        document.getElementById('output').textContent = "Error: " + e.message;
+      }
+    });
+  </script>
+</body>
+</html>
