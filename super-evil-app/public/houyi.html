@@ -159,7 +159,7 @@
               )
               .replace(/\x1b\[.*?m/g, '');
 
-            // renders logs 
+            // renders logs
             outputElement.innerHTML = formatted;
           } catch (err) {
             outputElement.textContent = 'Error running attack: ' + err.message;
@@ -172,11 +172,8 @@
       <form id="editorForm">
         <div class="form-section">
           <label for="harnessCode">Harness</label>
-          <textarea
-            id="harnessCode"
-            name="harnessCode"
-            rows="10"
-          >import dataclasses
+          <textarea id="harnessCode" name="harnessCode" rows="10">
+import dataclasses
 import loguru
 from harness.base_harness import Harness
 from constant.prompt_injection import PromptInjection
@@ -193,29 +190,36 @@ class TestHarness(Harness):
         logger.info(f"Application Prompt: {prompt}")
         response = completion_with_chatgpt(prompt)
         logger.info(f"Response: {response}")
-        return response</textarea></textarea>
+        return response</textarea
+          >
         </div>
 
         <div class="form-section">
           <label for="intentionCode">Attack Intention</label>
-          <textarea
-            id="intentionCode"
-            name="intentionCode"
-            rows="10" 
-          >import dataclasses
+          <textarea id="intentionCode" name="intentionCode" rows="10">
+import dataclasses
 from intention.base_intention import Intention
           
 @dataclasses.dataclass
 class TestIntention(Intention):
   name = "#CHANGE THIS##"
-  question_prompt = "## CHANGE THIS##"</textarea>
+  question_prompt = "## CHANGE THIS##"</textarea
+          >
         </div>
 
-        <button id="createCustomBtn" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">
+        <button
+          id="createCustomBtn"
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           Create Custom Attack
         </button>
-        
-        <button id="runCustomBtn" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">
+
+        <button
+          id="runCustomBtn"
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           Run Custom Attack
         </button>
       </form>
@@ -224,96 +228,73 @@ class TestIntention(Intention):
     </div>
 
     <script>
-  // Create custom attack handler (writes custom files)
-  document.getElementById('createCustomBtn').addEventListener('click', async () => {
-    const body = {
-      intentionCode: document.getElementById('intentionCode').value,
-      harnessCode: document.getElementById('harnessCode').value,
-    };
+      // gets user input 
+      document
+        .getElementById('createCustomBtn')
+        .addEventListener('click', async () => {
+          const body = {
+            intentionCode: document.getElementById('intentionCode').value,
+            harnessCode: document.getElementById('harnessCode').value,
+          };
 
-    const outputElement = document.getElementById('runOutput');
-    outputElement.textContent = 'Creating custom attack...';
+          const outputElement = document.getElementById('runOutput');
+          outputElement.textContent = 'Creating custom attack...';
 
-    try {
-      const res = await fetch('http://localhost:5000/create_attack', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      const result = await res.json();
+          // sends request to create custom attack
+          try {
+            const res = await fetch('http://localhost:5000/create_attack', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body),
+            });
+            const result = await res.json();
 
-      outputElement.textContent = result.status === 'success'
-        ? 'Custom attack created successfully.'
-        : `Error: ${result.output}`;
-    } catch (err) {
-      outputElement.textContent = 'Error creating custom attack: ' + err.message;
-    }
-  });
+            outputElement.textContent =
+              result.status === 'success'
+                ? 'Custom attack created successfully.'
+                : `Error: ${result.output}`;
+          } catch (err) {
+            outputElement.textContent =
+              'Error creating custom attack: ' + err.message;
+          }
+        });
 
-  // Run custom attack handler
-  document.getElementById('runCustomBtn').addEventListener('click', async () => {
-    const outputElement = document.getElementById('runOutput');
-    outputElement.textContent = 'Running custom attack...';
+      document
+        .getElementById('runCustomBtn')
+        .addEventListener('click', async () => {
+          const outputElement = document.getElementById('runOutput');
+          outputElement.textContent = 'Running custom attack...';
 
-    try {
-      const res = await fetch('http://localhost:5000/custom_attack', {
-        method: 'POST',
-      });
-      const json = await res.json();
-      const text = json.output;
+          // sends request to run the custom attack
+          try {
+            const res = await fetch('http://localhost:5000/custom_attack', {
+              method: 'POST',
+            });
+            const json = await res.json();
+            const text = json.output;
 
-      const formatted = text
-        .replace(/\x1b\[32m(.*?)\x1b\[0m/g, '<span class="timestamp">$1</span>')
-        .replace(/\x1b\[1mINFO\s+?\x1b\[0m/g, '<span class="log-info">INFO</span>')
-        .replace(/\x1b\[36m(.*?)\x1b\[0m/g, '<span class="log-highlight">$1</span>')
-        .replace(/\x1b\[.*?m/g, '');
+            // formats the logs
+            const formatted = text
+              .replace(
+                /\x1b\[32m(.*?)\x1b\[0m/g,
+                '<span class="timestamp">$1</span>'
+              )
+              .replace(
+                /\x1b\[1mINFO\s+?\x1b\[0m/g,
+                '<span class="log-info">INFO</span>'
+              )
+              .replace(
+                /\x1b\[36m(.*?)\x1b\[0m/g,
+                '<span class="log-highlight">$1</span>'
+              )
+              .replace(/\x1b\[.*?m/g, '');
 
-      outputElement.innerHTML = formatted;
-    } catch (err) {
-      outputElement.textContent = 'Error running custom attack: ' + err.message;
-    }
-  });
-
-
-      // gets user input
-      // document
-      //   .getElementById('editorForm')
-      //   .addEventListener('submit', async (e) => {
-      //     e.preventDefault();
-      //     const body = {
-      //       intentionCode: document.getElementById('intentionCode').value,
-      //       harnessCode: document.getElementById('harnessCode').value,
-      //     };
-
-      //     // sends request to run custom harness and intention
-      //     const res = await fetch('http://localhost:5000/create_attack', {
-      //       method: 'POST',
-      //       headers: { 'Content-Type': 'application/json' },
-      //       body: JSON.stringify(body),
-      //     });
-
-      //     const result = await res.json();
-      //     const text = result.output;
-
-      //     // Format the log output
-      //     const formatted = text
-      //       .replace(
-      //         /\x1b\[32m(.*?)\x1b\[0m/g,
-      //         '<span class="timestamp">$1</span>'
-      //       )
-      //       .replace(
-      //         /\x1b\[1mINFO\s+?\x1b\[0m/g,
-      //         '<span class="log-info">INFO</span>'
-      //       )
-      //       .replace(
-      //         /\x1b\[36m(.*?)\x1b\[0m/g,
-      //         '<span class="log-highlight">$1</span>'
-      //       )
-      //       .replace(/\x1b\[.*?m/g, '');
-
-      //     // reders logs 
-      //     document.getElementById('runOutput').innerHTML = formatted;
-      //   });
+            outputElement.innerHTML = formatted;
+          } catch (err) {
+            outputElement.textContent =
+              'Error running custom attack: ' + err.message;
+          }
+        });
     </script>
   </body>
 </html>
