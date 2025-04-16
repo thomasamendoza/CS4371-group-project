@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Run Houyi Attacks</title>
+    <!-- Link the shared CSS file -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      #result {
+        margin-top: 1em;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="breeds.html">Dog Breeds</a>
+    <a class="active" href="houyi.html">Run Houyi Attacks</a>
+    <a href="training.html">Training</a>
+    <a href="gallery.html">Photo Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="content">
+    <h1>Click to Launch Attack</h1>
+  <button id="attackBtn">Attack</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('attackBtn').addEventListener('click', async () => {
+      document.getElementById('output').textContent = "Running attack...";
+      try {
+        const res = await fetch("http://localhost:5000/attack", {
+          method: "POST"
+        });
+        const data = await res.json();
+        document.getElementById('output').textContent = data.output || "No output";
+      } catch (e) {
+        document.getElementById('output').textContent = "Error: " + e.message;
+      }
+    });
+  </script>
+    </div>
+  </body>
+</html>
