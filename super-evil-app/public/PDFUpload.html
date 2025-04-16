@@ -48,9 +48,14 @@
       padding: 20px;
     }
   </style>
+
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 </head>
 
 <body>
+
   <!-- Navigation Bar -->
   <div class="navbar">
     <a href="index.html">Home</a>
@@ -61,15 +66,73 @@
     <a href="about.html">About Us</a>
     <a href="contact.html">Contact</a>
   </div>
-  
-  <!-- Main content wrapped in a div with class "content" -->
+
   <div class="content">
     <h1>Upload PDFs here!</h1>
-    
-    <p>
-      Upload a PDF to launch an attack on the ChatGPT 4o model. <!-- Parsed by a ChatGPT Assistant AI-->
-    </p>
+    <p>Upload a PDF to launch an attack on the ChatGPT 4o model.</p>
+  
+    <!-- Upload controls -->
+    <input type="file" id="fileInput" accept="application/pdf" />
+    <button id="uploadBtn">Upload PDF</button>
+    <p id="uploadStatus"></p>
   </div>
+
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAYH90I2JNGpC-ZMPNHRVaBYF0hWVWDWns",
+      authDomain: "seagroupproject-f3366.firebaseapp.com",
+      projectId: "seagroupproject-f3366",
+      storageBucket: "seagroupproject-f3366.firebasestorage.app",
+      messagingSenderId: "237629912806",
+      appId: "1:237629912806:web:215b664752a0c8f0f6ad27"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+  
+  <script>
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadBtn = document.getElementById('uploadBtn');
+      const fileInput = document.getElementById('fileInput');
+      const uploadStatus = document.getElementById('uploadStatus');
+  
+      uploadBtn.addEventListener('click', () => {
+        const file = fileInput.files[0];
+        if (!file) {
+          alert('Please select a PDF file to upload.');
+          return;
+        }
+  
+        // Create a storage reference
+        const storageRef = firebase.storage().ref(`pdfs/${Date.now()}_${file.name}`);
+  
+        // Start upload
+        const uploadTask = storageRef.put(file);
+  
+        // Monitor progress
+        uploadTask.on('state_changed', 
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploadStatus.textContent = `Upload is ${progress.toFixed(2)}% done`;
+          },
+          (error) => {
+            console.error('Upload failed:', error);
+            uploadStatus.textContent = 'Upload failed!';
+          },
+          () => {
+            // Upload completed successfully
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              uploadStatus.textContent = 'Upload complete! File URL: ' + downloadURL;
+              // You can now send this URL to your processing backend if needed
+            });
+          }
+        );
+      });
+    });
+  </script>
 
 </body>
 
