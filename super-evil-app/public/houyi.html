@@ -129,11 +129,13 @@
 
     <script>
       document
+        // on click, executes request
         .getElementById('attackBtn')
         .addEventListener('click', async () => {
           const outputElement = document.getElementById('output');
           outputElement.textContent = 'Launching attack...';
 
+          // sends request to execute 'main.py'
           try {
             const res = await fetch('http://localhost:5000/attack', {
               method: 'POST',
@@ -146,17 +148,18 @@
               .replace(
                 /\x1b\[32m(.*?)\x1b\[0m/g,
                 '<span class="timestamp">$1</span>'
-              ) // green timestamp
+              )
               .replace(
                 /\x1b\[1mINFO\s+?\x1b\[0m/g,
                 '<span class="log-info">INFO</span>'
-              ) // bold INFO
+              )
               .replace(
                 /\x1b\[36m(.*?)\x1b\[0m/g,
                 '<span class="log-highlight">$1</span>'
-              ) // cyan details
-              .replace(/\x1b\[.*?m/g, ''); // strip other ANSI codes
+              )
+              .replace(/\x1b\[.*?m/g, '');
 
+            // renders logs 
             outputElement.innerHTML = formatted;
           } catch (err) {
             outputElement.textContent = 'Error running attack: ' + err.message;
@@ -208,8 +211,12 @@ class TestIntention(Intention):
   question_prompt = "## CHANGE THIS##"</textarea>
         </div>
 
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-          Run Attack
+        <button id="createCustomBtn" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Create Custom Attack
+        </button>
+        
+        <button id="runCustomBtn" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Run Custom Attack
         </button>
       </form>
 
@@ -217,41 +224,96 @@ class TestIntention(Intention):
     </div>
 
     <script>
-      document
-        .getElementById('editorForm')
-        .addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const body = {
-            intentionCode: document.getElementById('intentionCode').value,
-            harnessCode: document.getElementById('harnessCode').value,
-          };
+  // Create custom attack handler (writes custom files)
+  document.getElementById('createCustomBtn').addEventListener('click', async () => {
+    const body = {
+      intentionCode: document.getElementById('intentionCode').value,
+      harnessCode: document.getElementById('harnessCode').value,
+    };
 
-          const res = await fetch('http://localhost:5000/create_attack', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-          });
+    const outputElement = document.getElementById('runOutput');
+    outputElement.textContent = 'Creating custom attack...';
 
-          const result = await res.json();
-          const text = result.output;
+    try {
+      const res = await fetch('http://localhost:5000/create_attack', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const result = await res.json();
 
-          const formatted = text
-            .replace(
-              /\x1b\[32m(.*?)\x1b\[0m/g,
-              '<span class="timestamp">$1</span>'
-            ) // green timestamp
-            .replace(
-              /\x1b\[1mINFO\s+?\x1b\[0m/g,
-              '<span class="log-info">INFO</span>'
-            ) // bold INFO
-            .replace(
-              /\x1b\[36m(.*?)\x1b\[0m/g,
-              '<span class="log-highlight">$1</span>'
-            ) // cyan highlights
-            .replace(/\x1b\[.*?m/g, ''); // strip other ANSI
+      outputElement.textContent = result.status === 'success'
+        ? 'Custom attack created successfully.'
+        : `Error: ${result.output}`;
+    } catch (err) {
+      outputElement.textContent = 'Error creating custom attack: ' + err.message;
+    }
+  });
 
-          document.getElementById('runOutput').innerHTML = formatted;
-        });
+  // Run custom attack handler
+  document.getElementById('runCustomBtn').addEventListener('click', async () => {
+    const outputElement = document.getElementById('runOutput');
+    outputElement.textContent = 'Running custom attack...';
+
+    try {
+      const res = await fetch('http://localhost:5000/custom_attack', {
+        method: 'POST',
+      });
+      const json = await res.json();
+      const text = json.output;
+
+      const formatted = text
+        .replace(/\x1b\[32m(.*?)\x1b\[0m/g, '<span class="timestamp">$1</span>')
+        .replace(/\x1b\[1mINFO\s+?\x1b\[0m/g, '<span class="log-info">INFO</span>')
+        .replace(/\x1b\[36m(.*?)\x1b\[0m/g, '<span class="log-highlight">$1</span>')
+        .replace(/\x1b\[.*?m/g, '');
+
+      outputElement.innerHTML = formatted;
+    } catch (err) {
+      outputElement.textContent = 'Error running custom attack: ' + err.message;
+    }
+  });
+
+
+      // gets user input
+      // document
+      //   .getElementById('editorForm')
+      //   .addEventListener('submit', async (e) => {
+      //     e.preventDefault();
+      //     const body = {
+      //       intentionCode: document.getElementById('intentionCode').value,
+      //       harnessCode: document.getElementById('harnessCode').value,
+      //     };
+
+      //     // sends request to run custom harness and intention
+      //     const res = await fetch('http://localhost:5000/create_attack', {
+      //       method: 'POST',
+      //       headers: { 'Content-Type': 'application/json' },
+      //       body: JSON.stringify(body),
+      //     });
+
+      //     const result = await res.json();
+      //     const text = result.output;
+
+      //     // Format the log output
+      //     const formatted = text
+      //       .replace(
+      //         /\x1b\[32m(.*?)\x1b\[0m/g,
+      //         '<span class="timestamp">$1</span>'
+      //       )
+      //       .replace(
+      //         /\x1b\[1mINFO\s+?\x1b\[0m/g,
+      //         '<span class="log-info">INFO</span>'
+      //       )
+      //       .replace(
+      //         /\x1b\[36m(.*?)\x1b\[0m/g,
+      //         '<span class="log-highlight">$1</span>'
+      //       )
+      //       .replace(/\x1b\[.*?m/g, '');
+
+      //     // reders logs 
+      //     document.getElementById('runOutput').innerHTML = formatted;
+      //   });
     </script>
   </body>
 </html>
