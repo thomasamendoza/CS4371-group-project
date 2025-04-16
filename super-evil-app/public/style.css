@@ -112,7 +112,7 @@
   /* Gallery Container */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
   padding: 30px;
   max-width: 1000px;
@@ -132,11 +132,12 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 }
 
-/* Images */
+/* Gallery Images */
 .gallery-item img {
   width: 100%;
-  height: auto;
+  height: 200px;
   display: block;
+  object-fit: cover;
   transition: transform 0.3s ease;
   border-radius: 8px;
 }
@@ -149,20 +150,36 @@
 /* Tooltip */
 .tooltip {
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  background-color: rgba(0, 0, 0, 0.7);
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 6px;
   opacity: 0;
   transition: opacity 0.3s ease;
   font-family: Arial, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3)
 }
 
 /* Show Tooltip on Hover */
 .gallery-item:hover .tooltip {
   opacity: 1;
+  transition-delay: 0.8s; /* Slight delay like a standard tooltip */
+}
+
+/* Hidden Text */
+.hidden-text {
+  display: none;
+}
+
+/* Gallery Image Captions */
+.caption {
+  text-align: center;
+  font-size: 16px;
+  color: #3498db; 
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
   
