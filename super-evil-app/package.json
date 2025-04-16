@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky && husky install"
+    "fmt": "npx prettier --write ."
   },
   "eslintConfig": {
     "extends": [
