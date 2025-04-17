@@ -178,7 +178,7 @@ body {
 
 /* Individual Gallery Item */
 .gallery-item {
-  position: relative; 
+  position: relative; /* Create a reference point for the tooltip position */
   height: 200px; /* Set a consistent height for each item */
   background-color: #f9f9f9; /* Slightly off-white background */
   overflow: hidden; /* Hide anything outside of the item */
@@ -230,8 +230,8 @@ body {
 }
 
 /* Show Tooltip on Hover */
-  opacity: 1; /* Make tooltip visible on hover */
 .gallery-item:hover .tooltip {
+  opacity: 1; /* Make tooltip visible on hover */
   transition-delay: 0.8s; /* Slight delay */
 }
 
