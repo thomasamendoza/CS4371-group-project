@@ -113,22 +113,40 @@
   
         // Monitor progress
         uploadTask.on('state_changed', 
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploadStatus.textContent = `Upload is ${progress.toFixed(2)}% done`;
-          },
-          (error) => {
-            console.error('Upload failed:', error);
-            uploadStatus.textContent = 'Upload failed!';
-          },
-          () => {
-            // Upload completed successfully
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-              uploadStatus.textContent = 'Upload complete! File URL: ' + downloadURL;
-              // You can now send this URL to your processing backend if needed
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploadStatus.textContent = `Upload is ${progress.toFixed(2)}% done`;
+        },
+        (error) => {
+          console.error('Upload failed:', error);
+          uploadStatus.textContent = 'Upload failed!';
+        },
+        () => {
+          // Upload completed successfully
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            uploadStatus.textContent = 'Upload complete! File URL: ' + downloadURL;
+
+            // Send to backend flask server
+            fetch('http://127.0.0.1:5000/process-pdf', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                pdfUrl: downloadURL,
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              uploadStatus.textContent = `LLM Result: ${data.result}`;
+            })
+            .catch(error => {
+              console.error('Processing error:', error);
+              uploadStatus.textContent = 'Processing failed!';
             });
-          }
-        );
+          });
+        }
+      );
       });
     });
   </script>
