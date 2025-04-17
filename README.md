@@ -12,9 +12,12 @@ Our goal is to test indirect attacks on varyious LLM-integrated applications usi
 <h2 align="left">Run the Project, and Other Commands</h2>
 Run the Project:
 
--npm install
-
--npm start
+1. Clone this repo
+2. Clone this other repo: https://github.com/Alandlt15/group-project-backend
+3. Install requirements1.txt
+4. In the 'group-project-backend' repo open a terminal and run: `python api_server.py` (need this to run Houyi attacks)
+5. In the 'CS4371-group-project' repo open public/index.html in a brower (preferably chrome)
+6. Look through the site, and if you want to run Houyi attacks go for it!
 
 Format your code:
 
