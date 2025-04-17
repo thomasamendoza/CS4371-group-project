@@ -14,5 +14,4 @@ bitbucket-pipelines.yml
 .pre-commit-config.yaml
 .prettierrc
 *.jpg
-public/
 .svg

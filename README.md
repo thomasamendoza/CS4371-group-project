@@ -1,4 +1,5 @@
 # CS4371-group-project
+
 <h2 align="left">Who Are We?</h2>
 We are a group of students studying Computer Security Systems at TXST. Our team consists of Noah Alavi, Alan De la Torre, Thomas Mendoza, Athene Yowell, and Sebastian Zeidler.
 
@@ -11,9 +12,9 @@ Our goal is to test indirect attacks on varyious LLM-integrated applications usi
 <h2 align="left">Run the Project, and Other Commands</h2>
 Run the Project:
 
--npm install 
+-npm install
 
--npm start 
+-npm start
 
 Format your code:
 

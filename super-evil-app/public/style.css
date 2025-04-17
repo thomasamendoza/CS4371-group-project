@@ -41,7 +41,9 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   /* Smooth transition on hover */
 }
 

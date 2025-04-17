@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Run Houyi Attacks</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+      }
+
+      .navbar {
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .navbar a.active {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .output-box {
+        margin-top: 1.5em;
+        padding: 15px;
+        background-color: #1e1e1e;
+        color: #dcdcdc;
+        border-radius: 8px;
+        white-space: pre-wrap;
+        font-family: Consolas, monospace;
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid #444;
+      }
+
+      .timestamp {
+        color: #6a9955;
+      }
+
+      .log-info {
+        color: #569cd6;
+      }
+
+      .log-highlight {
+        font-weight: bold;
+        color: #ce9178;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 12px;
+        background-color: #221f1f;
+        color: #d3dfe1;
+        border: 1px solid #444;
+        border-radius: 8px;
+        font-family: Consolas, monospace;
+        font-size: 14px;
+        resize: vertical;
+        white-space: pre;
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .form-section {
+        margin-bottom: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html">Home</a>
+      <a class="active" href="houyi.html">Run Houyi Attacks</a>
+      <a href="breeds.html">Dog Breeds</a>
+      <a href="care.html">Dog Care</a>
+      <a href="training.html">Training</a>
+      <a href="gallery.html">Photo Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="content">
+      <h1>Click to Launch Default Houyi Attack</h1>
+      <button id="attackBtn">Attack</button>
+      <pre id="output" class="output-box">Awaiting output...</pre>
+    </div>
+
+    <script>
+      document
+        // on click, executes request
+        .getElementById('attackBtn')
+        .addEventListener('click', async () => {
+          const outputElement = document.getElementById('output');
+          outputElement.textContent = 'Launching attack...';
+
+          // sends request to execute 'main.py'
+          try {
+            const res = await fetch('http://localhost:5000/attack', {
+              method: 'POST',
+            });
+            const json = await res.json();
+            const text = json.output;
+
+            // Format the log output
+            const formatted = text
+              .replace(
+                /\x1b\[32m(.*?)\x1b\[0m/g,
+                '<span class="timestamp">$1</span>'
+              )
+              .replace(
+                /\x1b\[1mINFO\s+?\x1b\[0m/g,
+                '<span class="log-info">INFO</span>'
+              )
+              .replace(
+                /\x1b\[36m(.*?)\x1b\[0m/g,
+                '<span class="log-highlight">$1</span>'
+              )
+              .replace(/\x1b\[.*?m/g, '');
+
+            // renders logs
+            outputElement.innerHTML = formatted;
+          } catch (err) {
+            outputElement.textContent = 'Error running attack: ' + err.message;
+          }
+        });
+    </script>
+
+    <div class="content">
+      <h2 class="text-xl font-semibold mb-2">Create and Run Custom Attack</h2>
+      <form id="editorForm">
+        <div class="form-section">
+          <label for="harnessCode">Harness</label>
+          <textarea id="harnessCode" name="harnessCode" rows="10">
+import dataclasses
+import loguru
+from harness.base_harness import Harness
+from constant.prompt_injection import PromptInjection
+from util.openai_util import completion_with_chatgpt
+logger = loguru.logger
+
+@dataclasses.dataclass
+class TestHarness(Harness):
+    name: str = "#CHANGE THIS##"
+    site_url: str = "https://example.com"
+    application_document: str = "This is a mock application for testing prompt injection."
+    def run_harness(self, prompt_injection: PromptInjection):
+        prompt = "#CHANGE THIS##"
+        logger.info(f"Application Prompt: {prompt}")
+        response = completion_with_chatgpt(prompt)
+        logger.info(f"Response: {response}")
+        return response</textarea
+          >
+        </div>
+
+        <div class="form-section">
+          <label for="intentionCode">Attack Intention</label>
+          <textarea id="intentionCode" name="intentionCode" rows="10">
+import dataclasses
+from intention.base_intention import Intention
+          
+@dataclasses.dataclass
+class TestIntention(Intention):
+  name = "#CHANGE THIS##"
+  question_prompt = "## CHANGE THIS##"</textarea
+          >
+        </div>
+
+        <button
+          id="createCustomBtn"
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Create Custom Attack
+        </button>
+
+        <button
+          id="runCustomBtn"
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Run Custom Attack
+        </button>
+      </form>
+
+      <pre id="runOutput" class="output-box">Awaiting output...</pre>
+    </div>
+
+    <script>
+      // gets user input
+      document
+        .getElementById('createCustomBtn')
+        .addEventListener('click', async () => {
+          const body = {
+            intentionCode: document.getElementById('intentionCode').value,
+            harnessCode: document.getElementById('harnessCode').value,
+          };
+
+          const outputElement = document.getElementById('runOutput');
+          outputElement.textContent = 'Creating custom attack...';
+
+          // sends request to create custom attack
+          try {
+            const res = await fetch('http://localhost:5000/create_attack', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body),
+            });
+            const result = await res.json();
+
+            outputElement.textContent =
+              result.status === 'success'
+                ? 'Custom attack created successfully.'
+                : `Error: ${result.output}`;
+          } catch (err) {
+            outputElement.textContent =
+              'Error creating custom attack: ' + err.message;
+          }
+        });
+
+      document
+        .getElementById('runCustomBtn')
+        .addEventListener('click', async () => {
+          const outputElement = document.getElementById('runOutput');
+          outputElement.textContent = 'Running custom attack...';
+
+          // sends request to run the custom attack
+          try {
+            const res = await fetch('http://localhost:5000/custom_attack', {
+              method: 'POST',
+            });
+            const json = await res.json();
+            const text = json.output;
+
+            // formats the logs
+            const formatted = text
+              .replace(
+                /\x1b\[32m(.*?)\x1b\[0m/g,
+                '<span class="timestamp">$1</span>'
+              )
+              .replace(
+                /\x1b\[1mINFO\s+?\x1b\[0m/g,
+                '<span class="log-info">INFO</span>'
+              )
+              .replace(
+                /\x1b\[36m(.*?)\x1b\[0m/g,
+                '<span class="log-highlight">$1</span>'
+              )
+              .replace(/\x1b\[.*?m/g, '');
+
+            outputElement.innerHTML = formatted;
+          } catch (err) {
+            outputElement.textContent =
+              'Error running custom attack: ' + err.message;
+          }
+        });
+    </script>
+  </body>
+</html>
