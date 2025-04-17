@@ -115,16 +115,24 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
   padding: 30px;
-  max-width: 1000px;
+  max-width: 850px;
   margin: 0 auto;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Gallery Blocks contain the image and its caption */
+.gallery-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Individual Gallery Item */
 .gallery-item {
   position: relative;
+  height: 200px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #ddd;
@@ -142,20 +150,32 @@
   border-radius: 8px;
 }
 
+/* Gallery Image Captions */
+.caption {
+  text-align: center; /* Center text under image */
+  font-size: 18px; 
+  color: #3498db; /* Blue color is cohesive with blue from breeds page */
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* Slightly off-white background */
+}
+
 /* Hover Effect */
 .gallery-item:hover img {
-  transform: scale(1.03);
+  transform: scale(1.5)
+  translateY(20px);
 }
 
 /* Tooltip */
 .tooltip {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  top: 50%;
+  /*bottom: 50%;*/
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   font-size: 14px;
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 6px;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -174,12 +194,4 @@
   display: none;
 }
 
-/* Gallery Image Captions */
-.caption {
-  text-align: center;
-  font-size: 16px;
-  color: #3498db; 
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
   
