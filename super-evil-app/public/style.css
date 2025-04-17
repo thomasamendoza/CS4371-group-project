@@ -159,7 +159,10 @@ body {
 /* Gallery Container */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Create as many columns as possible that will fit in the container */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(220px, 1fr)
+  ); /* Create as many columns as possible that will fit in the container */
   max-width: 850px; /* Width matches breeds page for cohesiveness */
   margin: 0 auto; /* Center the gallery */
   padding: 30px;
@@ -171,7 +174,7 @@ body {
 
 /* Gallery Blocks contain the image and its caption */
 .gallery-block {
-  flex-direction: column; 
+  flex-direction: column;
   display: flex; /* Flexbox layout stacks images and captions on top of one another */
   align-items: center; /* Center items in block */
 }
@@ -200,30 +203,36 @@ body {
 /* Gallery Image Captions */
 .caption {
   text-align: center; /* Center text under image */
-  font-size: 18px; 
+  font-size: 18px;
   color: #3498db; /* Blue color is cohesive with blue from breeds page */
-  font-family: Arial, sans-serif; /* Font matches other site pages for cohesiveness */
+  font-family:
+    Arial, sans-serif; /* Font matches other site pages for cohesiveness */
   background-color: #f9f9f9; /* Slightly off-white background */
 }
 
 .gallery-item:hover img {
-/* Hover Effect */
-  transform: scale(1.5), /* Zoom in on image */
-  translateY(20px); /* Slightly lower image */
+  /* Hover Effect */
+  transform:
+    scale(1.5),
+    /* Zoom in on image */ translateY(20px); /* Slightly lower image */
 }
 
 .tooltip {
-/* Tooltip */
+  /* Tooltip */
   position: absolute; /* Position relative to the gallery item */
   top: 50%; /* Center tooltip vertically */
   left: 50%; /* Center tooltip horizontally */
-  transform: translate(-50%, -50%); /* Shift tooltip by 50% so it is correctly centered */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Shift tooltip by 50% so it is correctly centered */
   font-size: 14px;
   color: #fff; /* White text to contrast black background */
   padding: 8px 16px; /* Spacing around the tooltip text */
   opacity: 0; /* Tooltip starts transparent */
   transition: opacity 0.3s ease; /* Smooth transitions for transform animations */
-  font-family: Arial, sans-serif; /* Font matches other site pages for cohesiveness */
+  font-family:
+    Arial, sans-serif; /* Font matches other site pages for cohesiveness */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
   background-color: rgba(0, 0, 0, 0.8); /* Dark background for tooltip text */
   border-radius: 6px; /* Rounded corners */
