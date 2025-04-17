@@ -13,17 +13,22 @@
       }
 
       .navbar {
-        overflow: hidden;
         background-color: #333;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
       }
 
       .navbar a {
         float: left;
         display: block;
-        color: #f2f2f2;
+        color: white;
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
+        font-family: Arial, sans-serif;
       }
 
       .navbar a:hover {
@@ -111,18 +116,19 @@
     </style>
   </head>
   <body>
+    <!-- Navigation Bar -->
     <div class="navbar">
       <a href="index.html">Home</a>
-      <a class="active" href="houyi.html">Run Houyi Attacks</a>
+      <a class="active" href="houyi.html">Houyi Attack</a>
       <a href="breeds.html">Dog Breeds</a>
       <a href="care.html">Dog Care</a>
       <a href="training.html">Training</a>
       <a href="gallery.html">Photo Gallery</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
-      <a href="api.html">API docs</a>
-      <a href="language.html">Language</a>
+      <a href="api.html">API</a>
       <a href="form.html">Form</a>
+      <a href="language.html">Language</a>
     </div>
 
     <div class="content">

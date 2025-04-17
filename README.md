@@ -21,4 +21,5 @@ Run the Project:
 
 Format your code:
 
--npx prettier . --write
+1. cd super-evil-app/
+2. Run `npm run fmt`
