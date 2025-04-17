@@ -120,6 +120,9 @@
       <a href="gallery.html">Photo Gallery</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
+      <a href="api.html">API docs</a>
+      <a href="language.html">Language</a>
+      <a href="form.html">Form</a>
     </div>
 
     <div class="content">
@@ -138,7 +141,7 @@
 
           // sends request to execute 'main.py'
           try {
-            const res = await fetch('http://localhost:5000/attack', {
+            const res = await fetch('http://127.0.0.1:5000/attack', {
               method: 'POST',
             });
             const json = await res.json();
@@ -243,7 +246,7 @@ class TestIntention(Intention):
 
           // sends request to create custom attack
           try {
-            const res = await fetch('http://localhost:5000/create_attack', {
+            const res = await fetch('http://127.0.0.1:5000/create_attack', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(body),
@@ -268,7 +271,7 @@ class TestIntention(Intention):
 
           // sends request to run the custom attack
           try {
-            const res = await fetch('http://localhost:5000/custom_attack', {
+            const res = await fetch('http://127.0.0.1:5000/custom_attack', {
               method: 'POST',
             });
             const json = await res.json();
